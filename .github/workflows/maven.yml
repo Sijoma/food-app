@@ -24,3 +24,4 @@ jobs:
         java-version: 1.11
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      working-directory: backend
