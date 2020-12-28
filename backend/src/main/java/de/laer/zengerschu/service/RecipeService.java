@@ -5,6 +5,7 @@ import de.laer.zengerschu.repository.RecipeRepository;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Put;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -31,6 +32,11 @@ public class RecipeService {
     @Get(value = "getAll", produces = MediaType.APPLICATION_JSON)
     public List<Recipe> getAll() {
         return repository.findAll();
+    }
+
+    @Put(value = "add", consumes = MediaType.APPLICATION_JSON)
+    public void addRecipe(Recipe newRecipe){
+        repository.save(newRecipe);
     }
 
 }

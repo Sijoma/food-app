@@ -11,6 +11,7 @@ public class Recipe {
     @org.hibernate.annotations.Type(type="pg-uuid")
     private UUID id;
     private String name;
+    private String description;
 
     public Recipe(){
         this.id = UUID.randomUUID();
@@ -26,5 +27,13 @@ public class Recipe {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
