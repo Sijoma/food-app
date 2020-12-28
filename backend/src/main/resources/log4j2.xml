@@ -9,7 +9,7 @@
         <Logger name="de.laer.zengerschu" level="debug" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Root level="error">
+        <Root level="debug">
             <AppenderRef ref="LogToConsole"/>
         </Root>
     </Loggers>
