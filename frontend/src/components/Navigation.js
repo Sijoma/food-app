@@ -26,7 +26,7 @@ class Navigation extends React.Component {
           <Wrapper>
             <Menu 
             onClick={this.handleClick} 
-            selectedKeys={[current]} 
+            selectedKeys={this.state.current} 
             mode="horizontal">
             <Menu.Item 
                 key="foodCourt" 
