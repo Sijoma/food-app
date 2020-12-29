@@ -1,4 +1,6 @@
-const recipe1 = {
+import { Recipe } from '../types/recipe'
+
+const recipe1: Recipe = {
     title: "Nudeln mit Reibekäse",
     description: "Sehr lecker bei jeder Gelegenhei",
     einhandvertraeglichkeit: true,

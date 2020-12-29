@@ -2,9 +2,17 @@ import React from 'react';
 import { List, Divider, Card, Tag } from 'antd';
 import { Button } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Recipe } from '../types/recipe';
 import Tagliste from './Tagliste';
 
-export default function EssensListe(props){
+
+
+interface EssenslisteProps {
+  recipes: Recipe[]
+  kochliste: Recipe[]
+}
+
+export default function EssensListe(props: EssenslisteProps){
     return (
         <div>
             <List
@@ -34,14 +42,16 @@ export default function EssensListe(props){
                             src={item.image ? item.image : "https://designshack.net/wp-content/uploads/placeholder-image.png"} 
                             />}>   
                     <Button 
-                        type={(props.kochliste.findIndex(recipe => recipe.title === item.title) ? '' : 'primary')} 
+                        type={(props.kochliste.findIndex(recipe => recipe.title === item.title) ? undefined : 'primary')} 
                         shape="round" 
                         icon={<ShoppingCartOutlined />} size="large">
-                        {(props.kochliste.findIndex(recipe => recipe.title === item.title) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
+                        {(props.kochliste.findIndex((recipe: any)=> recipe.title === item.title) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
                     </Button>
                     <Divider></Divider>
                     <Tag color={item.einhandvertraeglichkeit ? 'green' : 'red'}>{item.einhandvertraeglichkeit ? 'Einhand' : 'Zweihändig'}</Tag>
-                    <Tagliste tags={item.tags}></Tagliste> 
+                    <Tagliste 
+                      tags={item.tags}
+                      />
                     </Card>
                 </List.Item>
               )}
