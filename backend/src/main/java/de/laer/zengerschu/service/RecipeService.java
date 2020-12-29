@@ -4,7 +4,6 @@ import de.laer.zengerschu.entity.Recipe;
 import de.laer.zengerschu.repository.RecipeRepository;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
