@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component, Key } from 'react';
 import { Menu } from 'antd';
+import { MenuInfo } from 'rc-menu/lib/interface';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -9,24 +10,23 @@ const Wrapper = styled.section`
     justify-content: center;
 `;
 
-class Navigation extends React.Component {
-    state = {
-      current: 'foodCourt',
-    };
-  
-    handleClick = e => {
-      console.log('click ', e);
-      this.setState({ current: e.key });
+interface NavigationProps {
+  onNavigation: (e: Key) => void
+  currentMenu: string
+}
+
+
+class Navigation extends Component<NavigationProps> { 
+    handleClick = (e: MenuInfo) => {
       this.props.onNavigation(e.key);
     };
   
     render() {
-      
       return (
           <Wrapper>
             <Menu 
-            onClick={this.handleClick} 
-            selectedKeys={this.state.current} 
+            onClick={this.handleClick}
+            selectedKeys={[this.props.currentMenu]} 
             mode="horizontal">
             <Menu.Item 
                 key="foodCourt" 
