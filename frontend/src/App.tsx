@@ -1,15 +1,21 @@
 import './App.css';
-import React from 'react';
+import React, { Key } from 'react';
 import { Layout } from 'antd';
 import Navigation from './components/Navigation';
 
 import foodRecipes from './data/dummyRecipes';
 import Essensliste from './components/Essensliste';
 import Kochliste from './components/Kochliste';
+import { Recipe } from './types/recipe';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
-class App extends React.Component {
+interface FoodAppState {
+  currentPage: Key,
+  kochliste: Recipe[]
+}
+
+class App extends React.Component<{}, FoodAppState> {
   state = {
     currentPage: 'foodCourt',
     kochliste: [{
@@ -21,10 +27,8 @@ class App extends React.Component {
     }]
   };
 
-
-  handleNavigation = page => {
+  handleNavigation = (page: Key) => {
     this.setState({ currentPage: page });
-    console.log('state', this.state)
   }
 
   render() {
@@ -32,13 +36,25 @@ class App extends React.Component {
     return (
     <Layout>
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-        <Navigation onNavigation={this.handleNavigation}/>
+        <Navigation 
+          onNavigation={this.handleNavigation}
+          currentMenu={this.state.currentPage}
+          />
       </Header>
       <Content style={{ padding: '100px 50px' }}>
-        { this.state.currentPage === 'foodCourt' && <Essensliste kochliste={this.state.kochliste} recipes={recipes}></Essensliste> }
-        { this.state.currentPage === 'kochListe' && <Kochliste kochliste={this.state.kochliste} />}
+        { 
+          this.state.currentPage === 'foodCourt' && 
+          <Essensliste 
+            kochliste={this.state.kochliste} 
+            recipes={recipes}
+          /> 
+        } { 
+          this.state.currentPage === 'kochListe' && 
+          <Kochliste 
+            kochliste={this.state.kochliste} 
+          />
+        }
       </Content>
-      {/* <Footer>Footer</Footer> */}
     </Layout>
     )
   };

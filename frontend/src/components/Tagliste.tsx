@@ -3,7 +3,11 @@ import { Tag } from 'antd';
 
 const tagColors = ['magenta', 'red', 'green', 'volcano', 'orange', 'gold', 'lime']
 
-export default function Tagliste(props){
+interface TaglisteProps {
+    tags: string[]
+}
+
+export default function Tagliste(props: TaglisteProps){
     const tags = props.tags.map(tag => {
         return (
                 <Tag key={tag} color={tagColors[Math.floor(Math.random() * tagColors.length)]}>{tag}</Tag>
