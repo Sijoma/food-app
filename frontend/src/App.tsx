@@ -1,63 +1,86 @@
 import './App.css';
-import React, { Key } from 'react';
-import { Layout } from 'antd';
-import Navigation from './components/Navigation';
+import { Layout, Spin, Alert } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import axios from 'axios'
+import React, { useEffect, Key, useState } from 'react';
 
-import foodRecipes from './data/dummyRecipes';
+import Navigation from './components/Navigation';
 import Essensliste from './components/Essensliste';
 import Kochliste from './components/Kochliste';
 import { Recipe } from './types/recipe';
+import { Ingredient } from './types/ingredient';
+import { foodRecipes, testIngredients} from './data/dummyRecipes';
 
 const { Header, Content } = Layout;
 
 interface FoodAppState {
   currentPage: Key,
-  kochliste: Recipe[]
+  kochliste: Recipe[],
+  zutatenliste: Ingredient[]
 }
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+function App() {
+  const [recipeCatalog, setRecipeCatalog ] = useState<{loading: boolean, error: string, recipes: Recipe[]}>({
+    loading: false,
+    error: '',
+    recipes: []
+  })
 
-class App extends React.Component<{}, FoodAppState> {
-  state = {
+  const [appState, setAppState] = useState<FoodAppState>({
     currentPage: 'foodCourt',
-    kochliste: [{
-        id: 'uuid',
-        title: "Nudeln mit Reibekäse",
-        description: "Sehr lecker bei jeder Gelegenheit",
-        image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3653&q=80",
-        tags: ['Hauptspeise', 'Kinder']
-    }]
-  };
+    kochliste: [],
+    zutatenliste: testIngredients
+  });
 
-  handleNavigation = (page: Key) => {
-    this.setState({ currentPage: page });
+  useEffect(() => {
+    setRecipeCatalog({recipes: [], error: '', loading: true });
+    axios.get<Recipe[]>(`http://localhost:8080/recipes`)
+      .then(res => {
+        setRecipeCatalog({recipes: res.data, error: '', loading: false });
+      }, (err) => {
+        console.log(err);
+        setRecipeCatalog({recipes: foodRecipes, error: "There was an error fetching the Recipe Catalog - Using stale data instead" , loading: false})
+      });
+  }, [setRecipeCatalog]);
+  
+  const handleNavigation = (page: Key) => {
+    setAppState({ ...appState, currentPage: page });
   }
-
-  render() {
-    const recipes = foodRecipes;
-    return (
+  return (
     <Layout>
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
         <Navigation 
-          onNavigation={this.handleNavigation}
-          currentMenu={this.state.currentPage}
+          onNavigation={handleNavigation}
+          currentMenu={appState.currentPage.toString()}
           />
       </Header>
       <Content style={{ padding: '100px 50px' }}>
+
+        {recipeCatalog.loading && <Spin indicator={antIcon} />}
+
+        {recipeCatalog.error && <Alert
+          message="Error"
+          description={recipeCatalog.error}
+          type="error"
+          closable
+          showIcon
+        />}
         { 
-          this.state.currentPage === 'foodCourt' && 
+          appState.currentPage === 'foodCourt' && 
           <Essensliste 
-            kochliste={this.state.kochliste} 
-            recipes={recipes}
+            kochliste={appState.kochliste} 
+            recipes={recipeCatalog.recipes}
           /> 
         } { 
-          this.state.currentPage === 'kochListe' && 
+          appState.currentPage === 'kochListe' && 
           <Kochliste 
-            kochliste={this.state.kochliste} 
+            kochliste={appState.kochliste}
+            ingredientList={appState.zutatenliste}
           />
         }
       </Content>
     </Layout>
-    )
-  };
+  );
 }
 
 export default App;

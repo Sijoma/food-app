@@ -1,3 +1,4 @@
+import { Ingredient } from '../types/ingredient'
 import { Recipe } from '../types/recipe'
 
 const recipe1: Recipe = {
@@ -34,4 +35,22 @@ const foodRecipes = [
     recipe4
 ]
 
-export default foodRecipes;
+
+const testIngredient: Ingredient = {
+    id: "test",
+    name: "test",
+    category: "test",
+    quantity: 1,
+    unit: "kg"
+}
+
+const testIngredients = [
+    testIngredient,
+    testIngredient,
+    testIngredient
+]
+
+export {
+    foodRecipes,
+    testIngredients
+}

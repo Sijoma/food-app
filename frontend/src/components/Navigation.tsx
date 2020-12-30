@@ -1,4 +1,4 @@
-import React, { Component, Key } from 'react';
+import React, { Key } from 'react';
 import { Menu } from 'antd';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
@@ -16,31 +16,29 @@ interface NavigationProps {
 }
 
 
-class Navigation extends Component<NavigationProps> { 
-    handleClick = (e: MenuInfo) => {
-      this.props.onNavigation(e.key);
+function Navigation(props: NavigationProps) { 
+    const handleClick = (e: MenuInfo) => {
+      props.onNavigation(e.key);
     };
   
-    render() {
       return (
           <Wrapper>
             <Menu 
-            onClick={this.handleClick}
-            selectedKeys={[this.props.currentMenu]} 
+            onClick={handleClick}
+            selectedKeys={[props.currentMenu]} 
             mode="horizontal">
             <Menu.Item 
                 key="foodCourt" 
                 icon={<AppstoreOutlined />}>
                 Food Court
             </Menu.Item>
-            <Menu.Item key="kochListe" icon={<UnorderedListOutlined />}>
+            <Menu.Item key="kochliste" icon={<UnorderedListOutlined />}>
                 Kochliste
             </Menu.Item>
             </Menu>
           </Wrapper>
       );
     }
-  }
 
 export default Navigation;
   
