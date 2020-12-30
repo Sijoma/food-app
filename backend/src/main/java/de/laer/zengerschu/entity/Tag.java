@@ -1,6 +1,10 @@
 package de.laer.zengerschu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.Collection;
@@ -38,14 +42,16 @@ public class Tag {
         this.description = description;
     }
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
     private Collection<Recipe> recipes;
 
+    @JsonIgnoreProperties("tags")
     public Collection<Recipe> getRecipes() {
         return recipes;
     }
-
     public void setRecipes(Collection<Recipe> recipes) {
         this.recipes = recipes;
     }
+
+
 }

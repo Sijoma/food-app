@@ -1,5 +1,7 @@
 package de.laer.zengerschu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -45,6 +47,7 @@ public class Recipe {
         this.description = description;
     }
 
+    @JsonIgnoreProperties("recipes")
     public Collection<Tag> getTags() {
         return tags;
     }
