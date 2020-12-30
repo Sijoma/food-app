@@ -1,7 +1,7 @@
 type Recipe = {
+    id: string
     title: string
     description: string
-    einhandvertraeglichkeit: boolean
     image: string
     tags: string[]
   }

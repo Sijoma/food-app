@@ -8,11 +8,9 @@ interface TaglisteProps {
 }
 
 export default function Tagliste(props: TaglisteProps){
-    const tags = props.tags.map(tag => {
-        return (
-                <Tag key={tag} color={tagColors[Math.floor(Math.random() * tagColors.length)]}>{tag}</Tag>
-        )
-    })
+    const tags = props.tags.map(tag => <Tag key={tag} color={tagColors[Math.floor(Math.random() * tagColors.length)]}>
+                {tag}
+            </Tag>)
     return (
         <div>
             {tags}

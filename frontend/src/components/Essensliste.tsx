@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Divider, Card, Tag } from 'antd';
+import { List, Divider, Card } from 'antd';
 import { Button } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Recipe } from '../types/recipe';
@@ -48,7 +48,6 @@ export default function EssensListe(props: EssenslisteProps){
                         {(props.kochliste.findIndex((recipe: any)=> recipe.title === item.title) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
                     </Button>
                     <Divider></Divider>
-                    <Tag color={item.einhandvertraeglichkeit ? 'green' : 'red'}>{item.einhandvertraeglichkeit ? 'Einhand' : 'Zweihändig'}</Tag>
                     <Tagliste 
                       tags={item.tags}
                       />
@@ -57,6 +56,5 @@ export default function EssensListe(props: EssenslisteProps){
               )}
             />
         </div>
-
     )
 }
