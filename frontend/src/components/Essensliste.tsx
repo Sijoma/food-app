@@ -30,9 +30,8 @@ export default function EssensListe(props: EssenslisteProps){
                 xxl: 5,
               }}
               renderItem={item => (
-                <List.Item  key="item.title">
-                    
-                    <Card title={item.title}
+                <List.Item  key={item.id}>
+                    <Card title={item.name}
                         hoverable
                         style={{ width: 300 }}
                         cover={<img alt="example" 
@@ -41,16 +40,17 @@ export default function EssensListe(props: EssenslisteProps){
                             height={400}
                             src={item.image ? item.image : "https://designshack.net/wp-content/uploads/placeholder-image.png"} 
                             />}>   
+                    { item.description && <p>{item.description}</p> }
                     <Button 
-                        type={(props.kochliste.findIndex(recipe => recipe.title === item.title) ? undefined : 'primary')} 
+                        type={(props.kochliste.findIndex(recipe => recipe.name === item.name) ? undefined : 'primary')} 
                         shape="round" 
                         icon={<ShoppingCartOutlined />} size="large">
-                        {(props.kochliste.findIndex((recipe: any)=> recipe.title === item.title) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
+                        {(props.kochliste.findIndex((recipe: any)=> recipe.name === item.name) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
                     </Button>
                     <Divider></Divider>
-                    <Tagliste 
-                      tags={item.tags}
-                      />
+                    {item.tags && <Tagliste 
+                      tags={item.tags.flatMap(tag => tag.title)}
+                      />}
                     </Card>
                 </List.Item>
               )}

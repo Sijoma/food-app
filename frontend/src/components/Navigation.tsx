@@ -35,6 +35,9 @@ function Navigation(props: NavigationProps) {
             <Menu.Item key="kochliste" icon={<UnorderedListOutlined />}>
                 Kochliste
             </Menu.Item>
+            <Menu.Item key="recipe-management" icon={<UnorderedListOutlined />}>
+                Recipe Management
+            </Menu.Item>
             </Menu>
           </Wrapper>
       );

@@ -1,9 +1,11 @@
+import Tag from "./tag"
+
 type Recipe = {
     id: string
-    title: string
+    name: string
     description: string
     image: string
-    tags: string[]
+    tags: Tag[]
   }
 
 export type {

@@ -10,6 +10,7 @@ import Kochliste from './components/Kochliste';
 import { Recipe } from './types/recipe';
 import { Ingredient } from './types/ingredient';
 import { foodRecipes, testIngredients} from './data/dummyRecipes';
+import RecipeManagement from './components/RecipeManagement';
 
 const { Header, Content } = Layout;
 
@@ -35,9 +36,12 @@ function App() {
   useEffect(() => {
     setRecipeCatalog({recipes: [], error: '', loading: true });
     axios.get<Recipe[]>(`http://localhost:8080/recipes`)
-      .then(res => {
+      .then(
+        (res) => {
+        console.log('the data', res.data)
         setRecipeCatalog({recipes: res.data, error: '', loading: false });
-      }, (err) => {
+        }, 
+        (err) => {
         console.log(err);
         setRecipeCatalog({recipes: foodRecipes, error: "There was an error fetching the Recipe Catalog - Using stale data instead" , loading: false})
       });
@@ -77,6 +81,9 @@ function App() {
             kochliste={appState.kochliste}
             ingredientList={appState.zutatenliste}
           />
+        }
+        { appState.currentPage === 'recipe-management' &&
+          <RecipeManagement />  
         }
       </Content>
     </Layout>
