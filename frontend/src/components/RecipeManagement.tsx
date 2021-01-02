@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
-import { Form, Input, Button, Spin } from 'antd';
+import { Form, Input, Button, Spin, Alert } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons'
+import MainApi from 'services/API/http-client';
 import { Recipe } from '../types/recipe';
-import axios from 'axios';
+import { AxiosError } from 'axios';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -23,17 +25,14 @@ const RecipeManagement = () => {
   const [form] = Form.useForm<Recipe>();
   const [requestState, setRequestState ] = useState({loading: false, error: ''})
 
-  const onFinish = (recipeData: Recipe) => {
+  const onFinish = async (recipeData: Recipe) => {
         setRequestState({loading: true, error: ''})
-        axios.put<Recipe>(`http://localhost:8080/recipe`, recipeData)
-          .then(
-            (res) => {
-            console.log('the res', res)
-            setRequestState({loading: false, error: ''})
-            }, 
-            (err) => {
-            setRequestState({loading: false, error: 'There was an issue adding the recipe.'})
-          });
+        const mainApi = MainApi.getInstance();
+        const createdRecipe = await mainApi.putRecipe(recipeData)
+          .catch((err: AxiosError) => setRequestState({loading: false, error: 'There was an issue adding the recipe. ' + err.message}))
+        if(createdRecipe){
+          setRequestState({loading: false, error: ''})
+        }
   };
 
   const onReset = () => {
@@ -42,8 +41,14 @@ const RecipeManagement = () => {
   };
 
   return (
-      
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
+        {requestState.error && <Alert
+          message="Error"
+          description={requestState.error}
+          type="error"
+          closable
+          showIcon
+        />}
       <Form.Item
         name="name"
         label="Name of recipe"

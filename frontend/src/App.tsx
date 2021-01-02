@@ -1,7 +1,7 @@
 import './App.css';
 import { Layout, Spin, Alert } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import React, { useEffect, Key, useState } from 'react';
 
 import Navigation from './components/Navigation';
@@ -11,6 +11,7 @@ import { Recipe } from './types/recipe';
 import { Ingredient } from './types/ingredient';
 import { foodRecipes, testIngredients} from './data/dummyRecipes';
 import RecipeManagement from './components/RecipeManagement';
+import MainApi from 'services/API/http-client';
 
 const { Header, Content } = Layout;
 
@@ -35,16 +36,18 @@ function App() {
 
   useEffect(() => {
     setRecipeCatalog({recipes: [], error: '', loading: true });
-    axios.get<Recipe[]>(`http://localhost:8080/recipes`)
-      .then(
-        (res) => {
-        console.log('the data', res.data)
-        setRecipeCatalog({recipes: res.data, error: '', loading: false });
-        }, 
-        (err) => {
-        console.log(err);
-        setRecipeCatalog({recipes: foodRecipes, error: "There was an error fetching the Recipe Catalog - Using stale data instead" , loading: false})
-      });
+    
+    // Declare async function as React effect callbacks are synchronous to prevent race conditions 
+    async function fetchRecipes(){
+      const mainApi = MainApi.getInstance();
+      const recipeCatalog = await mainApi.getRecipes()
+        .catch((err: AxiosError) => setRecipeCatalog({loading: false, recipes: foodRecipes, error: "There was an error fetching the Recipe Catalog - Using stale data instead" + err.message}))
+      if(recipeCatalog){
+        setRecipeCatalog({recipes: recipeCatalog, error: '', loading: false });
+      }
+    }
+    fetchRecipes();
+
   }, [setRecipeCatalog]);
   
   const handleNavigation = (page: Key) => {
