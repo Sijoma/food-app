@@ -1,6 +1,6 @@
-const FOOD_COURT = 'food_court'
-const RECIPE_MANAGEMENT = 'recipe_management'
-const COOKING_LIST = 'cooking_list'
+const FOOD_COURT = '/food-court'
+const RECIPE_MANAGEMENT = '/recipe-management'
+const COOKING_LIST = '/cooking-list'
 
 const ROUTES = {
     FOOD_COURT,
