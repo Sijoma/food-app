@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { List, Divider, Card, Spin, Alert, Button } from 'antd';
+import { List, Card, Spin, Alert, Button } from 'antd';
 import { AxiosError } from 'axios';
 import { LoadingOutlined } from '@ant-design/icons';
 import { ShoppingCartOutlined } from '@ant-design/icons';
@@ -81,9 +81,9 @@ export default function FoodCourt(props: FoodCourtProps) {
                 icon={<ShoppingCartOutlined />} size="large">
                 {(props.cookingList.findIndex(recipe => recipe.name === item.name) ? 'Add to cooking list' : 'In cooking list')}
               </Button>
-              <Divider></Divider>
               {item.tags && <Tagliste
-                tags={item.tags.flatMap(tag => tag.title)}
+                key={item.id}
+                tags={item.tags}
               />}
             </Card>
           </List.Item>
