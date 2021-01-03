@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import { MenuInfo } from 'rc-menu/lib/interface';
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import ROUTES from 'routes';
 
 const Wrapper = styled.section`
     display: flex;
@@ -28,14 +29,14 @@ function Navigation(props: NavigationProps) {
             selectedKeys={[props.currentMenu]} 
             mode="horizontal">
             <Menu.Item 
-                key="foodCourt" 
+                key={ROUTES.FOOD_COURT} 
                 icon={<AppstoreOutlined />}>
                 Food Court
             </Menu.Item>
-            <Menu.Item key="kochliste" icon={<UnorderedListOutlined />}>
+            <Menu.Item key={ROUTES.COOKING_LIST} icon={<UnorderedListOutlined />}>
                 Kochliste
             </Menu.Item>
-            <Menu.Item key="recipe-management" icon={<UnorderedListOutlined />}>
+            <Menu.Item key={ROUTES.RECIPE_MANAGEMENT} icon={<UnorderedListOutlined />}>
                 Recipe Management
             </Menu.Item>
             </Menu>
