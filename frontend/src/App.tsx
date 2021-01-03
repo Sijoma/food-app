@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import React, { Key, useState } from 'react';
 
 import Navigation from 'components/Navigation';
-import Essensliste from 'components/Essensliste';
+import FoodCourt from 'components/FoodCourt';
 import Kochliste from 'components/Kochliste';
 import { Recipe } from 'types/recipe';
 import { Ingredient } from 'types/ingredient';
@@ -41,7 +41,7 @@ function App() {
       <Content style={{ padding: '100px 50px' }}>
    
         { appState.currentPage === ROUTES.FOOD_COURT && 
-          <Essensliste 
+          <FoodCourt 
             kochliste={appState.kochliste} 
           /> } 
         { appState.currentPage === ROUTES.COOKING_LIST  && 
