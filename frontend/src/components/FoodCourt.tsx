@@ -9,6 +9,8 @@ import { Recipe } from '../types/recipe';
 import Tagliste from './Tagliste';
 
 import { foodRecipes } from 'data/dummyRecipes';
+import { Link } from 'react-router-dom';
+import ROUTES from 'routes';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 interface FoodCourtProps {
@@ -55,7 +57,9 @@ export default function FoodCourt(props: FoodCourtProps) {
       />}
       <List
         size="large"
-        footer={<div><Button type="primary">New Recipe</Button></div>}
+        footer={<div><Button type="primary"><Link to={ROUTES.RECIPE_MANAGEMENT}>
+          New Recipe
+        </Link></Button></div>}
         bordered
         dataSource={recipeCatalog.recipes}
         grid={{
