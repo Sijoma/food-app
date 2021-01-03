@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { List, Card, Spin, Alert, Button } from 'antd';
-import { AxiosError } from 'axios';
 import { LoadingOutlined } from '@ant-design/icons';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 
 import MainApi from 'services/API/http-client';
+import { HttpError } from 'services/API/http-client.interceptor';
 import { Recipe } from '../types/recipe';
 import Tagliste from './Tagliste';
 
@@ -24,18 +24,22 @@ export default function FoodCourt(props: FoodCourtProps) {
 
   useEffect(() => {
     setRecipeCatalog({ recipes: [], error: '', loading: true });
-
     // Declare async function as React effect callbacks are synchronous to prevent race conditions 
     async function fetchRecipes() {
       const mainApi = MainApi.getInstance();
       const recipeCatalog = await mainApi.getRecipes()
-        .catch((err: AxiosError) => setRecipeCatalog({ loading: false, recipes: foodRecipes, error: "There was an error fetching the Recipe Catalog - Using stale data instead" + err.message }))
+        .catch((err: HttpError) =>
+          setRecipeCatalog({
+            loading: false,
+            recipes: foodRecipes,
+            error: "There was an error fetching the Recipe Catalog - Using stale data instead - " + err.message
+          })
+        )
       if (recipeCatalog) {
         setRecipeCatalog({ recipes: recipeCatalog, error: '', loading: false });
       }
     }
     fetchRecipes();
-
   }, [setRecipeCatalog]);
 
   return (
@@ -76,7 +80,7 @@ export default function FoodCourt(props: FoodCourtProps) {
               />}>
               {item.description && <p>{item.description}</p>}
               <Button
-                type={(props.cookingList.findIndex(recipe => recipe.name === item.name) ? 'primary': undefined)}
+                type={(props.cookingList.findIndex(recipe => recipe.name === item.name) ? 'primary' : undefined)}
                 shape="round"
                 icon={<ShoppingCartOutlined />} size="large">
                 {(props.cookingList.findIndex(recipe => recipe.name === item.name) ? 'Add to cooking list' : 'In cooking list')}
