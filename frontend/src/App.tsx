@@ -7,7 +7,7 @@ import FoodCourt from 'components/FoodCourt';
 import CookingList from 'components/CookingList';
 import { Recipe } from 'types/recipe';
 import { Ingredient } from 'types/ingredient';
-import { testIngredients} from 'data/dummyRecipes';
+import { foodRecipes, testIngredients} from 'data/dummyRecipes';
 import RecipeManagement from 'components/RecipeManagement';
 import ROUTES from 'routes';
 
@@ -15,13 +15,15 @@ const { Header, Content } = Layout;
 
 interface FoodAppState {
   currentPage: Key,
-  CookingList: Recipe[],
+  cookingList: Recipe[],
   zutatenliste: Ingredient[]
 }
 function App() {
   const [appState, setAppState] = useState<FoodAppState>({
     currentPage: ROUTES.FOOD_COURT, 
-    CookingList: [],
+    cookingList: [
+      foodRecipes[2]
+    ],
     zutatenliste: testIngredients
   });
 
@@ -42,11 +44,11 @@ function App() {
    
         { appState.currentPage === ROUTES.FOOD_COURT && 
           <FoodCourt 
-            cookingList={appState.CookingList} 
+            cookingList={appState.cookingList} 
           /> } 
         { appState.currentPage === ROUTES.COOKING_LIST  && 
           <CookingList 
-            cookingList={appState.CookingList}
+            cookingList={appState.cookingList}
             ingredientList={appState.zutatenliste}
           /> }
         { appState.currentPage === ROUTES.RECIPE_MANAGEMENT &&
