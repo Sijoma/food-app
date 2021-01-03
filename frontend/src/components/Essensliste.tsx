@@ -1,25 +1,59 @@
-import React from 'react';
-import { List, Divider, Card } from 'antd';
-import { Button } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { List, Divider, Card, Spin, Alert, Button } from 'antd';
+import { AxiosError } from 'axios';
+import { LoadingOutlined } from '@ant-design/icons';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+
+import MainApi from 'services/API/http-client';
 import { Recipe } from '../types/recipe';
 import Tagliste from './Tagliste';
 
+import { foodRecipes } from 'data/dummyRecipes';
 
-
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 interface EssenslisteProps {
-  recipes: Recipe[]
   kochliste: Recipe[]
 }
 
 export default function EssensListe(props: EssenslisteProps){
+    const [recipeCatalog, setRecipeCatalog ] = useState<{loading: boolean, error: string, recipes: Recipe[]}>({
+      loading: false,
+      error: '',
+      recipes: []
+    })
+    
+    useEffect(() => {
+      setRecipeCatalog({recipes: [], error: '', loading: true });
+      
+      // Declare async function as React effect callbacks are synchronous to prevent race conditions 
+      async function fetchRecipes(){
+        const mainApi = MainApi.getInstance();
+        const recipeCatalog = await mainApi.getRecipes()
+          .catch((err: AxiosError) => setRecipeCatalog({loading: false, recipes: foodRecipes, error: "There was an error fetching the Recipe Catalog - Using stale data instead" + err.message}))
+        if(recipeCatalog){
+          setRecipeCatalog({recipes: recipeCatalog, error: '', loading: false });
+        }
+      }
+      fetchRecipes();
+  
+    }, [setRecipeCatalog]);
+
     return (
         <div>
+            {recipeCatalog.loading && <Spin indicator={antIcon} />}
+
+            {recipeCatalog.error && <Alert
+              message="Error"
+              description={recipeCatalog.error}
+              type="error"
+              closable
+              showIcon
+            />}
             <List
               size="large"
               footer={<div><Button type="primary">Neues Rezept</Button></div>}
               bordered
-              dataSource={props.recipes}
+              dataSource={recipeCatalog.recipes}
               grid={{
                 gutter: 25,
                 xs: 2,
