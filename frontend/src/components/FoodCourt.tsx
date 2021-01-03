@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { List, Card, Spin, Alert, Button } from 'antd';
+import { List, Alert, Button } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import { ShoppingCartOutlined } from '@ant-design/icons';
 
 import MainApi from 'services/API/http-client';
 import { HttpError } from 'services/API/http-client.interceptor';
 import { Recipe } from '../types/recipe';
-import Tagliste from './Tagliste';
 
 import { foodRecipes } from 'data/dummyRecipes';
 import { Link } from 'react-router-dom';
 import ROUTES from 'routes';
+import RecipeGridShowcase from './RecipeGridShowcase';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 interface FoodCourtProps {
@@ -46,55 +45,41 @@ export default function FoodCourt(props: FoodCourtProps) {
 
   return (
     <div>
-      {recipeCatalog.loading && <Spin indicator={antIcon} />}
-
-      {recipeCatalog.error && <Alert
+      { recipeCatalog.error && <Alert
         message="Error"
-        description={recipeCatalog.error}
+        description={ recipeCatalog.error }
         type="error"
         closable
         showIcon
       />}
       <List
         size="large"
-        footer={<div><Button type="primary"><Link to={ROUTES.RECIPE_MANAGEMENT}>
-          New Recipe
-        </Link></Button></div>}
+        footer={ 
+          <div>
+            <Button type="primary">
+              <Link to={ ROUTES.RECIPE_MANAGEMENT }>
+            New Recipe
+              </Link>
+            </Button> 
+          </div> 
+        }
+        loading={ recipeCatalog.loading }
         bordered
-        dataSource={recipeCatalog.recipes}
+        dataSource={ recipeCatalog.recipes }
         grid={{
-          gutter: 25,
-          xs: 2,
+          gutter: 20,
+          xs: 1,
           sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 5,
+          md: 3,
+          lg: 3,
+          xl: 4,
           xxl: 5,
         }}
-        renderItem={item => (
-          <List.Item key={item.id}>
-            <Card title={item.name}
-              hoverable
-              style={{ width: 300 }}
-              cover={<img alt="example"
-                style={{ objectFit: 'cover' }}
-                width={300}
-                height={400}
-                src={item.image ? item.image : "https://designshack.net/wp-content/uploads/placeholder-image.png"}
-              />}>
-              {item.description && <p>{item.description}</p>}
-              <Button
-                type={(props.cookingList.findIndex(recipe => recipe.name === item.name) ? 'primary' : undefined)}
-                shape="round"
-                icon={<ShoppingCartOutlined />} size="large">
-                {(props.cookingList.findIndex(recipe => recipe.name === item.name) ? 'Add to cooking list' : 'In cooking list')}
-              </Button>
-              {item.tags && <Tagliste
-                key={item.id}
-                tags={item.tags}
-              />}
-            </Card>
-          </List.Item>
+        renderItem={recipe => (
+          <RecipeGridShowcase
+            recipe={ recipe }
+            inCookingList={ props.cookingList.includes(recipe) } 
+            />
         )}
       />
     </div>
