@@ -11,11 +11,11 @@ import Tagliste from './Tagliste';
 import { foodRecipes } from 'data/dummyRecipes';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
-interface EssenslisteProps {
+interface FoodCourtProps {
   kochliste: Recipe[]
 }
 
-export default function EssensListe(props: EssenslisteProps){
+export default function FoodCourt(props: FoodCourtProps){
     const [recipeCatalog, setRecipeCatalog ] = useState<{loading: boolean, error: string, recipes: Recipe[]}>({
       loading: false,
       error: '',
