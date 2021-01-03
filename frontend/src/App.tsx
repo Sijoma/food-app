@@ -2,14 +2,14 @@ import './App.css';
 import { Layout } from 'antd';
 import React, { Key, useState } from 'react';
 
-import Navigation from './components/Navigation';
-import Essensliste from './components/Essensliste';
-import Kochliste from './components/Kochliste';
-import { Recipe } from './types/recipe';
-import { Ingredient } from './types/ingredient';
-import { testIngredients} from './data/dummyRecipes';
-import RecipeManagement from './components/RecipeManagement';
-
+import Navigation from 'components/Navigation';
+import Essensliste from 'components/Essensliste';
+import Kochliste from 'components/Kochliste';
+import { Recipe } from 'types/recipe';
+import { Ingredient } from 'types/ingredient';
+import { testIngredients} from 'data/dummyRecipes';
+import RecipeManagement from 'components/RecipeManagement';
+import ROUTES from 'routes';
 
 const { Header, Content } = Layout;
 
@@ -19,10 +19,8 @@ interface FoodAppState {
   zutatenliste: Ingredient[]
 }
 function App() {
-
-
   const [appState, setAppState] = useState<FoodAppState>({
-    currentPage: 'foodCourt',
+    currentPage: ROUTES.FOOD_COURT, 
     kochliste: [],
     zutatenliste: testIngredients
   });
@@ -41,21 +39,17 @@ function App() {
           />
       </Header>
       <Content style={{ padding: '100px 50px' }}>
-
    
-        { 
-          appState.currentPage === 'foodCourt' && 
+        { appState.currentPage === ROUTES.FOOD_COURT && 
           <Essensliste 
             kochliste={appState.kochliste} 
-          /> 
-        } { 
-          appState.currentPage === 'kochListe' && 
+          /> } 
+        { appState.currentPage === ROUTES.COOKING_LIST  && 
           <Kochliste 
             kochliste={appState.kochliste}
             ingredientList={appState.zutatenliste}
-          />
-        }
-        { appState.currentPage === 'recipe-management' &&
+          /> }
+        { appState.currentPage === ROUTES.RECIPE_MANAGEMENT &&
           <RecipeManagement />  
         }
       </Content>
