@@ -1,6 +1,9 @@
-import React, { Key } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
-import { MenuInfo } from 'rc-menu/lib/interface';
+import {
+  Link,
+  useLocation
+} from "react-router-dom";
 import { AppstoreOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import ROUTES from 'routes';
@@ -11,33 +14,28 @@ const Wrapper = styled.section`
     justify-content: center;
 `;
 
-interface NavigationProps {
-  onNavigation: (e: Key) => void
-  currentMenu: string
-}
-
-
-function Navigation(props: NavigationProps) {
-  const handleClick = (e: MenuInfo) => {
-    props.onNavigation(e.key);
-  };
+function Navigation() {
+  let location = useLocation();
 
   return (
     <Wrapper>
       <Menu
-        onClick={handleClick}
-        selectedKeys={[props.currentMenu]}
+        selectedKeys={[location.pathname]}
         mode="horizontal">
         <Menu.Item
           key={ROUTES.FOOD_COURT}
           icon={<AppstoreOutlined />}>
-          Food Court
+          <Link to={ ROUTES.FOOD_COURT }>Food Court</Link>
         </Menu.Item>
         <Menu.Item key={ROUTES.COOKING_LIST} icon={<UnorderedListOutlined />}>
+        <Link to={ ROUTES.COOKING_LIST }>
           Cooking List
+          </Link>
         </Menu.Item>
         <Menu.Item key={ROUTES.RECIPE_MANAGEMENT} icon={<UnorderedListOutlined />}>
+          <Link to={ ROUTES.RECIPE_MANAGEMENT }>
           Recipe Management
+          </Link>
         </Menu.Item>
       </Menu>
     </Wrapper>
