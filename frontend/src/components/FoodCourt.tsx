@@ -12,7 +12,7 @@ import { foodRecipes } from 'data/dummyRecipes';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 interface FoodCourtProps {
-  kochliste: Recipe[]
+  cookingList: Recipe[]
 }
 
 export default function FoodCourt(props: FoodCourtProps){
@@ -76,10 +76,10 @@ export default function FoodCourt(props: FoodCourtProps){
                             />}>   
                     { item.description && <p>{item.description}</p> }
                     <Button 
-                        type={(props.kochliste.findIndex(recipe => recipe.name === item.name) ? undefined : 'primary')} 
+                        type={(props.cookingList.findIndex(recipe => recipe.name === item.name) ? undefined : 'primary')} 
                         shape="round" 
                         icon={<ShoppingCartOutlined />} size="large">
-                        {(props.kochliste.findIndex((recipe: any)=> recipe.name === item.name) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
+                        {(props.cookingList.findIndex((recipe: any)=> recipe.name === item.name) ? ' In Kochliste' : ' Zur Kochliste hinzufügen')}
                     </Button>
                     <Divider></Divider>
                     {item.tags && <Tagliste 

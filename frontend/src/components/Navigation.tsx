@@ -34,7 +34,7 @@ function Navigation(props: NavigationProps) {
                 Food Court
             </Menu.Item>
             <Menu.Item key={ROUTES.COOKING_LIST} icon={<UnorderedListOutlined />}>
-                Kochliste
+                Cooking List
             </Menu.Item>
             <Menu.Item key={ROUTES.RECIPE_MANAGEMENT} icon={<UnorderedListOutlined />}>
                 Recipe Management

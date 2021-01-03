@@ -4,7 +4,7 @@ import React, { Key, useState } from 'react';
 
 import Navigation from 'components/Navigation';
 import FoodCourt from 'components/FoodCourt';
-import Kochliste from 'components/Kochliste';
+import CookingList from 'components/CookingList';
 import { Recipe } from 'types/recipe';
 import { Ingredient } from 'types/ingredient';
 import { testIngredients} from 'data/dummyRecipes';
@@ -15,13 +15,13 @@ const { Header, Content } = Layout;
 
 interface FoodAppState {
   currentPage: Key,
-  kochliste: Recipe[],
+  CookingList: Recipe[],
   zutatenliste: Ingredient[]
 }
 function App() {
   const [appState, setAppState] = useState<FoodAppState>({
     currentPage: ROUTES.FOOD_COURT, 
-    kochliste: [],
+    CookingList: [],
     zutatenliste: testIngredients
   });
 
@@ -42,11 +42,11 @@ function App() {
    
         { appState.currentPage === ROUTES.FOOD_COURT && 
           <FoodCourt 
-            kochliste={appState.kochliste} 
+            cookingList={appState.CookingList} 
           /> } 
         { appState.currentPage === ROUTES.COOKING_LIST  && 
-          <Kochliste 
-            kochliste={appState.kochliste}
+          <CookingList 
+            cookingList={appState.CookingList}
             ingredientList={appState.zutatenliste}
           /> }
         { appState.currentPage === ROUTES.RECIPE_MANAGEMENT &&
