@@ -1,5 +1,5 @@
 import HttpClient from './http-client.interceptor';
-import { Recipe } from '../../types/recipe';
+import { Recipe } from 'types/recipe';
 
 class MainApi extends HttpClient {
     private static classInstance?: MainApi;
@@ -18,7 +18,9 @@ class MainApi extends HttpClient {
 
     public getRecipes = () => this.instance.get<Recipe[]>('/recipes');
     
-    public putRecipe = (recipe: Recipe) => this.instance.put<Recipe>('/recipe');
+    public putRecipe = (recipe: Recipe) => this.instance.put<Recipe>('/recipe', recipe);
+    
+    public getCookingList = () => this.instance.get<(Recipe[])>('/cooking-list');
 }
 
 export default MainApi
