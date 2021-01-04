@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import ROUTES from 'routes';
 import RecipeGridShowcase from './RecipeGridShowcase';
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 interface FoodCourtProps {
   cookingList: Recipe[]
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, List } from 'antd';
 import { Recipe } from 'types/recipe';
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import Tagliste from './Tagliste';
+import Taglist from './Taglist';
 
 interface RecipeGridShowcaseProps {
     recipe: Recipe
@@ -29,7 +29,7 @@ function RecipeGridShowcase(props: RecipeGridShowcaseProps){
             icon={<ShoppingCartOutlined />} size="large">
             {(props.inCookingList ? 'In cooking list' : 'Add to cooking list')}
           </Button>
-          {recipe.tags && <Tagliste
+          {recipe.tags && <Taglist
             key={recipe.id}
             tags={recipe.tags}
           />}

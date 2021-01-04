@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import Tagliste from '../components/Tagliste'
+import Taglist from '../components/Taglist'
 
 
 test('renders tagliste', () => {
     const tagValue = {id: 1, title: 'test1title', description: 'test1desc'}
     const tagValue2 = {id: 2, title: 'test2title', description: 'test12esc'}
 
-    render(<Tagliste
+    render(<Taglist
         tags={[tagValue, tagValue2]}
         />);
     const tagElement = screen.getByText(tagValue.title)
