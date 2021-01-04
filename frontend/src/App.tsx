@@ -9,8 +9,6 @@ import {
 import Navigation from 'components/Navigation';
 import FoodCourt from 'components/FoodCourt';
 import CookingList from 'components/CookingList';
-import { Recipe } from 'types/recipe';
-import { Ingredient } from 'types/ingredient';
 import { foodRecipes, testIngredients } from 'data/dummyRecipes';
 import RecipeManagement from 'components/RecipeManagement';
 import ROUTES from 'routes';
