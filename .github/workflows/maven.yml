@@ -28,5 +28,5 @@ jobs:
   #    run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       
     - name: Build with Maven
-      run: mvn -B deploy --file pom.xml --image=ghcr.io/${{ github.repository }}/backend
+      run: mvn -B deploy --file pom.xml -Djib.to.image=ghcr.io/${{ github.repository }}/backend
       working-directory: backend
