@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { List, Alert, Button } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
 
 import MainApi from 'services/API/http-client';
 import { HttpError } from 'services/API/http-client.interceptor';
@@ -11,7 +10,7 @@ import { Link } from 'react-router-dom';
 import ROUTES from 'routes';
 import RecipeGridShowcase from './RecipeGridShowcase';
 
-const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
 interface FoodCourtProps {
   cookingList: Recipe[]
 }

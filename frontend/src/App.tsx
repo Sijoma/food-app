@@ -14,6 +14,7 @@ import { Ingredient } from 'types/ingredient';
 import { foodRecipes, testIngredients } from 'data/dummyRecipes';
 import RecipeManagement from 'components/RecipeManagement';
 import ROUTES from 'routes';
+import EnvironmentDisplay from 'components/EnvironmentDisplay';
 
 const { Header, Content } = Layout;
 
@@ -36,6 +37,7 @@ function App() {
         <Navigation />
       </Header>
       <Content style={{ padding: '100px 50px' }}>
+        {process.env.NODE_ENV === 'development' && <EnvironmentDisplay />}
         <Switch>
           <Route path={ROUTES.FOOD_COURT}>
             <FoodCourt
