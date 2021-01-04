@@ -23,32 +23,32 @@ const tailLayout = {
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const RecipeManagement = () => {
   const [form] = Form.useForm<Recipe>();
-  const [requestState, setRequestState ] = useState({loading: false, error: ''})
+  const [requestState, setRequestState] = useState({ loading: false, error: '' })
 
   const onFinish = async (recipeData: Recipe) => {
-        setRequestState({loading: true, error: ''})
-        const mainApi = MainApi.getInstance();
-        const createdRecipe = await mainApi.putRecipe(recipeData)
-          .catch((err: AxiosError) => setRequestState({loading: false, error: 'There was an issue adding the recipe. ' + err.message}))
-        if(createdRecipe){
-          setRequestState({loading: false, error: ''})
-        }
+    setRequestState({ loading: true, error: '' })
+    const mainApi = MainApi.getInstance();
+    const createdRecipe = await mainApi.putRecipe(recipeData)
+      .catch((err: AxiosError) => setRequestState({ loading: false, error: 'There was an issue adding the recipe. ' + err.message }))
+    if (createdRecipe) {
+      setRequestState({ loading: false, error: '' })
+    }
   };
 
   const onReset = () => {
     form.resetFields();
-    setRequestState({loading: false, error: ''})
+    setRequestState({ loading: false, error: '' })
   };
 
   return (
     <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
-        {requestState.error && <Alert
-          message="Error"
-          description={requestState.error}
-          type="error"
-          closable
-          showIcon
-        />}
+      {requestState.error && <Alert
+        message="Error"
+        description={requestState.error}
+        type="error"
+        closable
+        showIcon
+      />}
       <Form.Item
         name="name"
         label="Name of recipe"
