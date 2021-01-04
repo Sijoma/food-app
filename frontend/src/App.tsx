@@ -1,6 +1,6 @@
 import './App.css';
 import { Layout } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Switch,
   Route
@@ -15,21 +15,12 @@ import { foodRecipes, testIngredients } from 'data/dummyRecipes';
 import RecipeManagement from 'components/RecipeManagement';
 import ROUTES from 'routes';
 import EnvironmentDisplay from 'components/EnvironmentDisplay';
+import { Footer } from 'antd/lib/layout/layout';
 
 const { Header, Content } = Layout;
 
-interface FoodAppState {
-  cookingList: Recipe[],
-  zutatenliste: Ingredient[]
-}
 function App() {
-
-  const [appState, ] = useState<FoodAppState>({
-    cookingList: [
-      foodRecipes[2]
-    ],
-    zutatenliste: testIngredients
-  });
+  const cookingList = [foodRecipes[2]]
 
   return (
     <Layout>
@@ -37,16 +28,16 @@ function App() {
         <Navigation />
       </Header>
       <Content style={{ padding: '100px 50px' }}>
-        {process.env.NODE_ENV === 'development' && <EnvironmentDisplay />}
+        
         <Switch>
           <Route path={ROUTES.FOOD_COURT}>
             <FoodCourt
-              cookingList={appState.cookingList} />
+              cookingList={cookingList} />
           </Route>
           <Route path={ROUTES.COOKING_LIST}>
             <CookingList
-              cookingList={appState.cookingList}
-              ingredientList={appState.zutatenliste}
+              cookingList={cookingList}
+              ingredientList={testIngredients}
             />
           </Route>
           <Route path={ROUTES.RECIPE_MANAGEMENT}>
@@ -54,6 +45,9 @@ function App() {
           </Route>
         </Switch>
       </Content>
+      <Footer>
+        {process.env.NODE_ENV === 'development' && <EnvironmentDisplay />}
+      </Footer>
     </Layout>
   );
 }
