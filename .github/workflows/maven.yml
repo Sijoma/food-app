@@ -5,15 +5,18 @@ name: Java CI with Maven
 on:
   push:
     paths:
-    - 'backend/**'
+      - 'backend/**'
   pull_request:
-    branches: [main]
+    branches: [ main ]
     paths:
-    - 'backend/**'
-  workflow_dispatch:
+      - 'backend/**'
+  workflow_dispatch: 
+
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.11

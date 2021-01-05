@@ -13,16 +13,16 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: frontend
+      app: frontend 
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend 
     spec:
       imagePullSecrets:
       - name: ghcr
       containers:
-      - name: frontend
+      - name: frontend 
         image: ghcr.io/sijoma/food-app/food-app-frontend:test # {"$imagepolicy": "food-app:food-app-frontend"}
         imagePullPolicy: Always
         ports:

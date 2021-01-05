@@ -3,7 +3,4 @@ defaultPackage: de.laer.zengerschu
 testFramework: junit
 sourceLanguage: java
 buildTool: maven
-features: [annotation-api, app-name, data, data-jpa, graalvm, http-client, java, java-application,
-  jdbc-hikari, jib, junit, kubernetes, liquibase, log4j2, lombok, management, maven,
-  netty-server, openapi, postgres, properties, readme, security-annotations, security-jwt,
-  security-oauth2, spring, spring-boot, spring-data-jpa, testcontainers]
+features: [annotation-api, app-name, data, data-jpa, graalvm, http-client, java, java-application, jdbc-hikari, jib, junit, kubernetes, liquibase, log4j2, lombok, management, maven, netty-server, openapi, postgres, properties, readme, security-annotations, security-jwt, security-oauth2, spring, spring-boot, spring-data-jpa, testcontainers]
