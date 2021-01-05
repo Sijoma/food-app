@@ -22,14 +22,13 @@ spec:
       containers:
       - name: frontend 
         image: ghcr.io/sijoma/food-app:0.0.1
+        imagePullSecrets:
+        - name: ghcr
         imagePullPolicy: Always
         ports:
         - name: http
           containerPort: 80
           protocol: TCP
-        # env:
-        # - name: PODINFO_UI_COLOR
-        #   value: "#34577c"
         resources:
           limits:
             cpu: 400m
