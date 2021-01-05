@@ -23,7 +23,7 @@ spec:
       - name: ghcr
       containers:
       - name: frontend 
-        image: ghcr.io/sijoma/food-app/food-app-frontend:latest # {"$imagepolicy": "food-app:food-app-frontend"}
+        image: ghcr.io/sijoma/food-app/food-app-frontend:test # {"$imagepolicy": "food-app:food-app-frontend"}
         imagePullPolicy: Always
         ports:
         - name: http
