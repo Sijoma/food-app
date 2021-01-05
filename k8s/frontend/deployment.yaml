@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: frontend 
-        image: ghcr.io/sijoma/food-app:0.0.1
+        image: ghcr.io/sijoma/food-app:latest
         imagePullSecrets:
         - name: ghcr
         imagePullPolicy: Always
