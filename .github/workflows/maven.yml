@@ -24,13 +24,12 @@ jobs:
       with:
         java-version: 1.11
         
-        - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
-  #    run: echo "${{ secrets.CR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.CR_PAT }}
       
     - name: Build with Maven
       run: mvn -B deploy --file pom.xml -Djib.to.image=ghcr.io/${{ github.repository }}/backend
