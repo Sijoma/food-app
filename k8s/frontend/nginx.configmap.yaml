@@ -6,10 +6,9 @@ metadata:
 data:
   nginx.conf: |
     server { 
-    listen 80;
-    server_name food.home;
+      listen 80;
 
-    location / {
+      location / {
         root /usr/share/nginx/html;
         try_files $uri /index.html;
       }
