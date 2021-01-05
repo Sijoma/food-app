@@ -33,7 +33,6 @@ jobs:
     - run: npm test
       working-directory: frontend
   push:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     needs: build
 
     runs-on: ubuntu-latest
