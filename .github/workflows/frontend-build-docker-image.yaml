@@ -11,7 +11,7 @@ on:
       - 'frontend/**'
 
 env:
-  IMAGE_NAME: food-app
+  IMAGE_NAME: food-app-frontend
 
 jobs:
   build:
