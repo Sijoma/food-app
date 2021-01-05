@@ -10,7 +10,7 @@ data:
     server_name food.home;
 
     location / {
-      root /usr/share/nginx/html;
-      try_files $uri /index.html;
+        root /usr/share/nginx/html;
+        try_files $uri /index.html;
       }
     }
