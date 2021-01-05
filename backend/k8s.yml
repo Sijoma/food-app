@@ -12,24 +12,24 @@ spec:
         app: "food-app-backend"
     spec:
       containers:
-        - name: "food-app-backend"
-          image: "gcr.io/food-app-backend/jib-image"
-          ports:
-            - name: http
-              containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /health/readiness
-              port: 8080
-            initialDelaySeconds: 5
-            timeoutSeconds: 3
-          livenessProbe:
-            httpGet:
-              path: /health/liveness
-              port: 8080
-            initialDelaySeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 10
+      - name: "food-app-backend"
+        image: "gcr.io/food-app-backend/jib-image"
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 10
 ---
 apiVersion: v1
 kind: Service
@@ -40,5 +40,5 @@ spec:
     app: "food-app-backend"
   type: LoadBalancer
   ports:
-    - protocol: "TCP"
-      port: 8080
+  - protocol: "TCP"
+    port: 8080

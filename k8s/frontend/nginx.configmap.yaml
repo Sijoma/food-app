@@ -4,12 +4,5 @@ metadata:
   name: nginx-conf
   namespace: food-app
 data:
-  nginx.conf: |
-    server { 
-      listen 80;
-
-      location / {
-        root /usr/share/nginx/html;
-        try_files $uri /index.html;
-      }
-    }
+  nginx.conf: "server { \n  listen 80;\n\n  location / {\n    root /usr/share/nginx/html;\n
+    \   try_files $uri /index.html;\n  }\n}"

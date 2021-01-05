@@ -16,5 +16,5 @@ spec:
         backend:
           service:
             name: food-app-frontend-svc
-            port: 
+            port:
               number: 80
