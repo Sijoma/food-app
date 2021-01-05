@@ -8,5 +8,5 @@ spec:
   selector:
     app: frontend
   ports:
-    - name: http
-      port: 80
+  - name: http
+    port: 80
