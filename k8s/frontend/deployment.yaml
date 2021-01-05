@@ -19,11 +19,12 @@ spec:
       labels:
         app: frontend 
     spec:
+      imagePullSecrets:
+      - name: ghcr
       containers:
       - name: frontend 
         image: ghcr.io/sijoma/food-app:latest
-        imagePullSecrets:
-        - name: ghcr
+
         imagePullPolicy: Always
         ports:
         - name: http
