@@ -54,7 +54,7 @@ spec:
         args:
         - '-nginx.scrape-uri=http://localhost:8090/nginx_status'
         - '-nginx.retries=10'
-        - '-nginx.retry-interval=10'
+        - '-nginx.retry-interval=10s'
         ports:
         - name: nginx-ex-port
           containerPort: 9113
