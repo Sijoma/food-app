@@ -28,6 +28,13 @@ spec:
         ports:
         - name: http
           containerPort: 80
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
         resources:
           limits:
             cpu: 400m
@@ -38,7 +45,33 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/nginx/conf.d
+          subPath: nginx.food-frontend.conf
+          readOnly: true
+        - mountPath: /etc/nginx/conf.d/nginx-status.conf
+          name: nginx-status-conf
+          readOnly: true
+          subPath: nginx.status.conf
+      - name: nginx-exporter
+        image: 'nginx/nginx-prometheus-exporter:0.3.0'
+        args:
+          - '-nginx.scrape-uri=http://localhost:8090/nginx_status'
+        ports:
+          - name: nginx-ex-port
+            containerPort: 9113
+            protocol: TCP
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 50m
+            memory: 32Mi
       volumes:
       - name: config
         configMap:
           name: nginx-conf
+      - configMap:
+          defaultMode: 420
+          name: nginx-status-conf
+        name: nginx-status-conf
