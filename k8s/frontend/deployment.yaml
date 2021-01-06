@@ -53,6 +53,8 @@ spec:
         image: 'mmontes11/nginx-prometheus-exporter:v0.8.0'
         args:
         - '-nginx.scrape-uri=http://localhost:8090/nginx_status'
+        - '-nginx.retries=10'
+        - '-nginx.retry-interval=10'
         ports:
         - name: nginx-ex-port
           containerPort: 9113
