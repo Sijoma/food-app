@@ -23,7 +23,7 @@ spec:
       - name: ghcr
       containers:
       - name: frontend
-        image: ghcr.io/sijoma/food-app/food-app-frontend:0.0.16 # {"$imagepolicy": "flux-system:food-app-frontend"}
+        image: ghcr.io/sijoma/food-app/food-app-frontend:0.0.17 # {"$imagepolicy": "flux-system:food-app-frontend"}
         imagePullPolicy: Always
         ports:
         - name: http
@@ -44,21 +44,17 @@ spec:
             memory: 64Mi
         volumeMounts:
         - name: config
-          mountPath: /etc/nginx/conf.d
-          subPath: nginx.food-frontend.conf
-          readOnly: true
-        - mountPath: /etc/nginx/conf.d/nginx-status.conf
-          name: nginx-status-conf
-          readOnly: true
-          subPath: nginx.status.conf
+          mountPath: /etc/nginx/conf.d/
+        - name: nginx-status-conf
+          mountPath: /etc/nginx/conf.d/
       - name: nginx-exporter
-        image: 'nginx/nginx-prometheus-exporter:0.3.0'
+        image: 'mmontes11/nginx-prometheus-exporter:v0.8.0'
         args:
-          - '-nginx.scrape-uri=http://localhost:8090/nginx_status'
+        - '-nginx.scrape-uri=http://localhost:8090/nginx_status'
         ports:
-          - name: nginx-ex-port
-            containerPort: 9113
-            protocol: TCP
+        - name: nginx-ex-port
+          containerPort: 9113
+          protocol: TCP
         imagePullPolicy: Always
         resources:
           limits:
