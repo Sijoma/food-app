@@ -3,6 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: frontend-svc-monitor
   namespace: food-app
+  labels: 
+    release: kube-prom-stack
 spec:
   selector:
     matchLabels:
