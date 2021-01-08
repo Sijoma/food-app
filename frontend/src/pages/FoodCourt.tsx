@@ -8,7 +8,7 @@ import { Recipe } from '../types/recipe';
 import { foodRecipes } from 'data/dummyRecipes';
 import { Link } from 'react-router-dom';
 import ROUTES from 'routes';
-import RecipeGridShowcase from './RecipeGridShowcase';
+import RecipeGridShowcase from '../components/RecipeGridShowcase';
 
 
 interface FoodCourtProps {

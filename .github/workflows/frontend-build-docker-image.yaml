@@ -1,11 +1,9 @@
-name: Frontend - Node.js CI & Docker
+name: Frontend - Docker Build
 on:
   workflow_dispatch:
   push:
-    paths:
-    - "frontend/**"
-  pull_request:
-    branches: [main]
+    branches:
+    - main
     paths:
     - "frontend/**"
 env:
