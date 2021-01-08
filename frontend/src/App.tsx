@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 
 import Navigation from 'components/Navigation';
-import FoodCourt from 'components/FoodCourt';
-import CookingList from 'components/CookingList';
+import FoodCourt from 'pages/FoodCourt';
+import CookingList from 'pages/CookingList';
 import { foodRecipes, testIngredients } from 'data/dummyRecipes';
-import RecipeManagement from 'components/RecipeManagement';
+import RecipeManagement from 'pages/RecipeManagement';
 import ROUTES from 'routes';
 import EnvironmentDisplay from 'components/EnvironmentDisplay';
 import { Footer } from 'antd/lib/layout/layout';
