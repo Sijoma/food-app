@@ -1,0 +1,29 @@
+name: Frontend - Node.js Build
+on:
+  workflow_dispatch:
+  push:
+    paths:
+    - "frontend/**"
+  pull_request:
+    branches: [main]
+    paths:
+    - "frontend/**"
+env:
+  IMAGE_NAME: food-app-frontend
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+      working-directory: frontend
+    - run: npm test
+      working-directory: frontend
