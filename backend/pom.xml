@@ -14,7 +14,7 @@
   </parent>
 
   <properties>
-    <packaging>jar</packaging>
+    <packaging>docker</packaging>
     <jdk.version>11</jdk.version>
     <release.version>11</release.version>
     <micronaut.version>2.2.2</micronaut.version>
@@ -180,12 +180,6 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.12.1</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
       <version>2.12.1</version>
       <scope>runtime</scope>
     </dependency>
