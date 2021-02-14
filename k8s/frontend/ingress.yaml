@@ -4,11 +4,16 @@ metadata:
   name: frontend-ingress
   namespace: food-app
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
-spec:
+spec:  
+  tls:
+    - hosts:
+        - food.simon-zengerling.de
+      secretName: letsencrypt-prod-tls-food
   rules:
-  - host: food.home
+  - host: food.simon-zengerling.de
     http:
       paths:
       - path: /.*
