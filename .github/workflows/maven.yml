@@ -27,5 +27,5 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CR_PAT }}
     - name: Build with Maven
-      run: mvn -B deploy --file pom.xml -Djib.to.image=ghcr.io/sijoma/food-app/food-app-backend::0.0.$GITHUB_RUN_NUMBER
+      run: mvn -B deploy --file pom.xml -Djib.to.image=ghcr.io/sijoma/food-app/food-app-backend:0.0.$GITHUB_RUN_NUMBER
       working-directory: backend
