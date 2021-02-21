@@ -43,13 +43,17 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.CR_PAT }}
     - name: Run Buildx
-      run: "IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME\n # Change all uppercase
-        to lowercase\nIMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')\n# Strip git
-        ref prefix from version\nVERSION=$(echo \"${{ github.ref }}\" | sed -e 's,.*/\\(.*\\),\\1,')\n#
-        Strip \"v\" prefix from tag name\n[[ \"${{ github.ref }}\" == \"refs/tags/\"*
-        ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')\n# Use Docker `latest` tag
-        convention\n[ \"$VERSION\" == \"main\" ] && VERSION=latest\necho IMAGE_ID=$IMAGE_ID\necho
-        VERSION=$VERSION\n# --platform linux/amd64 \ndocker buildx build --platform
-        linux/arm/v7 --output \"type=image,push=true\" --file Dockerfile --tag $IMAGE_ID:0.0.$GITHUB_RUN_NUMBER
-        .\n"
+      run: |
+        IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        # Strip git ref prefix from version
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+        # Use Docker `latest` tag convention
+        [ "$VERSION" == "main" ] && VERSION=latest
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+        docker buildx build --platform linux/amd64  --output "type=image,push=true" --file Dockerfile --tag $IMAGE_ID:0.0.$GITHUB_RUN_NUMBER .
       working-directory: frontend
