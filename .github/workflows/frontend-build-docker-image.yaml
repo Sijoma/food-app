@@ -55,5 +55,5 @@ jobs:
         [ "$VERSION" == "main" ] && VERSION=latest
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
-        docker buildx build --platform linux/amd64  --output "type=image,push=true" --file Dockerfile --tag $IMAGE_ID:0.0.$GITHUB_RUN_NUMBER .
+        docker buildx build --platform linux/arm64  --output "type=image,push=true" --file Dockerfile --tag $IMAGE_ID:0.0.$GITHUB_RUN_NUMBER .
       working-directory: frontend
