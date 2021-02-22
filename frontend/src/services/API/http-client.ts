@@ -5,7 +5,7 @@ class MainApi extends HttpClient {
     private static classInstance?: MainApi;
 
     private constructor() {
-        super(process.env.REACT_APP_API_URL || 'food-api.simon-zengerling.de');
+        super(process.env.REACT_APP_API_URL || 'localhost:8080');
     }
 
     public static getInstance() {
