@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  minReadySeconds: 3
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      imagePullSecrets:
+      - name: ghcr
+      containers:
+      - name: backend
+        image: ghcr.io/sijoma/food-app/food-app-backend:0.0.32
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 8080
+          initialDelaySeconds: 120
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 8080
+          initialDelaySeconds: 120
+          timeoutSeconds: 3
+          failureThreshold: 10
+        env:
+          - name: datasources.default.username
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: username
+          - name: datasources.default.password
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: password
+        envFrom:
+          - configMapRef:
+              name: app-properties
+        resources:
+          limits:
+            cpu: 600m
+            memory: 512Mi
+          requests:
+            cpu: 400m
+            memory: 250Mi
+

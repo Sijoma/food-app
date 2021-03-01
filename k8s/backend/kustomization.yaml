@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: food-app
+resources:
+- deployment.yaml
+- ingress.yml
+- service.yaml
+configMapGenerator:
+- name: app-properties 
+  envs:
+  - application.properties
+secretGenerator:
+- name: db-secrets 
+  envs:
+  - database.properties
+  type: Opaque
