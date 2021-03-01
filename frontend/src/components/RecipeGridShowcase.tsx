@@ -29,10 +29,10 @@ function RecipeGridShowcase(props: RecipeGridShowcaseProps){
             icon={<ShoppingCartOutlined />} size="large">
             {(props.inCookingList ? 'In cooking list' : 'Add to cooking list')}
           </Button>
-          {recipe.tags && <Tagliste
+          <Tagliste
             key={recipe.id}
             tags={recipe.tags}
-          />}
+          />
         </Card>
       </List.Item>
     )
