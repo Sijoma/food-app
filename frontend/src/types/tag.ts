@@ -1,5 +1,5 @@
 type Tag = {
-    id: Number
+    id: number
     title: string
     description: string
 }

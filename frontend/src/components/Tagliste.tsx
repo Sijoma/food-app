@@ -61,7 +61,6 @@ class Taglist extends React.Component<TaglistProps, TaglistState> {
             }
             tags = [...tags, newTag];
         }
-        console.log(tags);
         this.setState({
             tags,
             inputVisible: false,
